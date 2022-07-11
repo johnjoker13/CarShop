@@ -3,7 +3,7 @@ import { Car } from '../interfaces/CarInterface';
 import MongoModel from './MongoModel';
 import CarDocument from '../interfaces/CardDocument';
 
-const carSchema = new Schema<CarDocument>({
+export const carSchema = new Schema<CarDocument>({
   model: String,
   year: Number,
   color: String,
