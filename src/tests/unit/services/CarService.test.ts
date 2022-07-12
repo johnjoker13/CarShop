@@ -23,5 +23,10 @@ describe('Car Service', () => {
       const carCreated = await carService.create(carMock);
       expect(carCreated).to.have.property('model');
     });
+
+    it('3 - New car has a property called status', async () => {
+      const carCreated = await carService.create(carMock);
+      expect(carCreated).to.have.property('status');
+    });
   });
 });
