@@ -14,8 +14,8 @@ class CustomRouter<T> {
     controller: MongoController<T>,
     route: string = controller.route,
   ) {
-    // this.router.get(route, controller.read);
-    // this.router.get(`${route}/:id`, controller.readOne);
+    this.router.get(route, controller.read);
+    this.router.get(`${route}/:id`, controller.readOne);
     this.router.post(route, controller.create);
   }
 }
