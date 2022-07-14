@@ -6,6 +6,8 @@ import MongoController,
 import CarService from '../services/Cars.service';
 import { Car } from '../interfaces/CarInterface';
 
+const lenErr = 'Id must have 24 hexadecimal characters';
+
 class CarController extends MongoController<Car> {
   private _route: string;
 
@@ -44,6 +46,10 @@ class CarController extends MongoController<Car> {
   ): Promise<typeof res> => {
     const { id } = req.params;
     try {
+      if (id.length < 24) {
+        return res.status(400)
+          .json({ error: lenErr });
+      }
       const car = await this.service.readOne(id);
       return car
         ? res.json(car)
@@ -57,12 +63,17 @@ class CarController extends MongoController<Car> {
     req: Request<{ id: string, obj: Car }>,
     res: Response<Car | ResponseError>,
   ): Promise<typeof res> => {
-    const { id, obj } = req.body;
+    const { body: { obj }, params: { id } } = req;
     try {
+      if (id.length < 24) {
+        return res.status(400)
+          .json({ error: lenErr });
+      }
+      const findId = await this.service.readOne(id);
       const car = await this.service.update(id, obj);
-      return car
-        ? res.json(car)
-        : res.status(404).json({ error: this.errors.notFound });
+      if (!findId) return res.status(404).json({ error: this.errors.notFound });
+      if (!req.body) return res.status(400).json({ error: 'Object is empty' });
+      return res.status(200).json(car as Car);
     } catch (error) {
       return res.status(500).json({ error: this.errors.internal });
     }
@@ -74,10 +85,14 @@ class CarController extends MongoController<Car> {
   ): Promise<typeof res> => {
     const { id } = req.params;
     try {
-      const car = await this.service.delete(id);
-      return car
-        ? res.json(car)
-        : res.status(404).json({ error: this.errors.notFound });
+      await this.service.delete(id);
+      if (id.length < 24) {
+        return res.status(400)
+          .json({ error: lenErr });
+      }
+      const findId = await this.service.readOne(id);
+      if (!findId) return res.status(404).json({ error: this.errors.notFound });
+      return res.status(204);
     } catch (error) {
       return res.status(500).json({ error: this.errors.internal });
     }

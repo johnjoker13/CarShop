@@ -29,4 +29,21 @@ describe('Car Model', () => {
       expect(carCreated).to.have.property('model');
     });
   });
+
+  describe('Read cars', () => {
+    before(() => {
+      sinon.stub(carMongooseModel, 'find').resolves([]);
+    });
+
+    after(() => {
+      (carMongooseModel.find as SinonStub).restore();
+    });
+
+    it('1 - Returns an array of cars', async () => {
+      const carModel = new CarsModel();
+      const carCreated = await carModel.read();
+      expect(carCreated).to.be.deep.equal([]);
+    });
+  });
+
 });

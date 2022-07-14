@@ -36,7 +36,7 @@ abstract class MongoController<T> {
   ): Promise<typeof res> => {
     try {
       const objs = await this.service.read();
-      return res.json(objs);
+      return res.status(200).json(objs);
     } catch (err) {
       return res.status(500).json({ error: this.errors.internal });
     }
