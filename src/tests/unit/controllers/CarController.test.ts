@@ -1,62 +1,67 @@
-import { expect } from 'chai';
-import CarService from '../../../services/Cars.service';
-import { carMock } from '../../../mocks';
-import sinon, { SinonStub } from 'sinon';
+import chai, { expect } from 'chai';
+import chaiHttp from 'chai-http';
+import { carMock, createdCarMock, readCarsOne } from '../../../mocks';
+import sinon from 'sinon';
+import { Request, Response } from 'express';
+import CarController from '../../../controllers/Cars.controller';
+import { RequestWithBody, ResponseError } from '../../../controllers/MongoController';
+import { Car } from '../../../interfaces/CarInterface';
+
+chai.use(chaiHttp);
+
+const req = {} as Request;
+const res = {} as Response<Car | ResponseError>;
+
+const carController = new CarController();
 
 describe('Car Controller', () => {
-  const carService = new CarService();
   describe('Create Car', () => {
-    before(() => {
-      sinon.stub(carService, 'create').resolves(carMock);
+    before(async () => {
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
     });
 
-    after(() => {
-      (carService.create as SinonStub).restore();
-    });
-    
-    it('1 - Success on creating a new car', async () => {
-      const carCreated = await carService.create(carMock);
-      expect(carCreated).to.be.deep.equal(carMock);
-    });
+    describe('Request without body:', () => {
+      it('Returns status: 400', async () => {
+        req.body = {};
+        await carController.create(req, res);
 
-    it('2 - New car has a property called model', async () => {
-      const carCreated = await carService.create(carMock);
-      expect(carCreated).to.have.property('model');
+        expect((res.status as sinon.SinonStub).calledWith(400)).to.be.true;
+      });
     });
   });
+  describe('Request with a valid body:', () => {
+    it('Returns status 201', async () => {
+      const req = {} as RequestWithBody<Car>
+      const res = {} as Response<Car | ResponseError>
+      sinon
+        .stub(carController.service, 'create')
+        .resolves(createdCarMock);
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+      req.body = carMock as Car
 
-  describe('Read Cars', () => {
-    before(() => {
-      sinon.stub(carService, 'read').resolves([]);
-    });
-
-    after(() => {
-      (carService.read as SinonStub).restore();
-    });
-    
-    it('1 - Success on reading all cars', async () => {
-      const carCreated = await carService.read();
-      expect(carCreated).to.be.deep.equal([]);
-    });
-  });
-
-  describe('readOne Car', () => {
-    before(() => {
-      sinon.stub(carService, 'readOne').resolves(carMock);
+      await carController.create(req, res)
+      expect((res.status as sinon.SinonStub).calledWith(201)).to.be.true
+      expect((res.json as sinon.SinonStub).calledWith(createdCarMock)).to.be.true
+      sinon.restore();
     });
 
-    after(() => {
-      (carService.readOne as SinonStub).restore();
-    });
-    
-    it('1 - Success on creating a new car', async () => {
-      const car = await carService.readOne('1');
-      expect(car).to.be.deep.equal(carMock);
-    });
+    it('Find by id', async () => {
+      const req = { params: {
+        id: '4edd40c86762e0fb12000003'
+      } } as Request<{ id: string }>
+      const res = {} as Response<Car | ResponseError>
+      sinon
+        .stub(carController.service, 'readOne')
+        .resolves(readCarsOne)
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
 
-    it('2 - New car has a property called model', async () => {
-      const car = await carService.readOne('1');
-      expect(car).to.have.property('model');
+      await carController.readOne(req, res);
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true
+      expect((res.json as sinon.SinonStub).calledWith(readCarsOne)).to.be.true
+      sinon.restore();
     });
   });
 });
