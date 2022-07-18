@@ -23,7 +23,7 @@ abstract class MongoController<T> {
 
   protected errors = ControllerErrors;
 
-  constructor(protected service: MongoService<T>) { }
+  constructor(public service: MongoService<T>) { }
 
   abstract create(
     req: RequestWithBody<T>,
