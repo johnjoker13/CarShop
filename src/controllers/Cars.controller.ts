@@ -52,7 +52,7 @@ class CarController extends MongoController<Car> {
       }
       const car = await this.service.readOne(id);
       return car
-        ? res.json(car)
+        ? res.status(200).json(car)
         : res.status(404).json({ error: this.errors.notFound });
     } catch (error) {
       return res.status(500).json({ error: this.errors.internal });
