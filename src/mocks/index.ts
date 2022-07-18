@@ -1,5 +1,3 @@
-import carMock from './carMock';
+import { carMock, createdCarMock, readCarsOne } from './carMock';
 
-const auxImport = 'OK';
-
-export { carMock, auxImport };
+export { carMock, createdCarMock, readCarsOne };
