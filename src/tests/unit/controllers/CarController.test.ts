@@ -63,5 +63,39 @@ describe('Car Controller', () => {
       expect((res.json as sinon.SinonStub).calledWith(readCarsOne)).to.be.true
       sinon.restore();
     });
+
+    it('Update by id', async () => {
+      const req = {  params: {
+        id: '4edd40c86762e0fb12000003',
+      }, body: { readCarsOne } } as Request<{ id: string }, { body: Car }>
+      const res = {} as Response<Car | ResponseError>
+      sinon
+        .stub(carController.service, 'update')
+        .resolves(readCarsOne)
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+
+      await carController.update(req, res);
+      expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true
+      expect((res.json as sinon.SinonStub).calledWith(readCarsOne)).to.be.true
+      sinon.restore();
+    });
+
+    it('Delete by id', async () => {
+      const req = {  params: {
+        id: '4edd40c86762e0fb12000003',
+      }} as Request<{ id: string }>
+      const res = {} as Response<Car | ResponseError>
+      sinon
+        .stub(carController.service, 'delete')
+        .resolves(readCarsOne)
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+
+      await carController.delete(req, res);
+      expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true
+      expect((res.json as sinon.SinonStub).calledWith(readCarsOne)).to.be.true
+      sinon.restore();
+    });
   });
 });
