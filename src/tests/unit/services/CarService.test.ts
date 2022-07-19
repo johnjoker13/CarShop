@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import CarService from '../../../services/Cars.service';
-import { carMock } from '../../../mocks';
+import { carMock, readCarsOne } from '../../../mocks';
 import sinon, { SinonStub } from 'sinon';
 
 describe('Car Service', () => {
@@ -88,6 +88,38 @@ describe('Car Service', () => {
     it('5 - car has a property called status', async () => {
       const car = await carService.readOne('1');
       expect(car).to.have.property('seatsQty');
+    });
+  });
+
+  describe('update Car', () => {
+    before(() => {
+      sinon.stub(carService, 'update').resolves(readCarsOne);
+    });
+
+    after(() => {
+      (carService.update as SinonStub).restore();
+    });
+    
+    it('1 - Success updating a car', async () => {
+      const car = await carService
+      .update('4edd40c86762e0fb12000003', readCarsOne);
+      expect(car).to.be.equal(readCarsOne);
+    });
+  });
+
+  describe('delete Car', () => {
+    before(() => {
+      sinon.stub(carService, 'delete').resolves(readCarsOne);
+    });
+
+    after(() => {
+      (carService.delete as SinonStub).restore();
+    });
+    
+    it('1 - Success deleting a car', async () => {
+      const car = await carService
+      .delete('4edd40c86762e0fb12000003');
+      expect(car).to.be.equal(readCarsOne);
     });
   });
 });
