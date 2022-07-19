@@ -2,19 +2,19 @@ import { expect } from 'chai';
 import { model } from 'mongoose';
 import sinon, { SinonStub } from 'sinon';
 import { Car } from '../../../interfaces/CarInterface';
-import CarsModel, { carSchema } from '../../../models/Cars.model';
+import CarsModel, { carModel as mongoModel } from '../../../models/Cars.model';
 import { carMock } from '../../../mocks';
 
-describe('Car Model', () => {
-  const carMongooseModel = model<Car>('Cars', carSchema);
+const carModel = new CarsModel();
 
+describe('Car Model', () => {
   describe('Create car', () => {
     before(() => {
-      sinon.stub(carMongooseModel, 'create').resolves(carMock);
+      sinon.stub(mongoModel, 'create').resolves(carMock);
     });
 
     after(() => {
-      (carMongooseModel.create as SinonStub).restore();
+      (mongoModel.create as SinonStub).restore();
     });
 
     it('1 - New car successfully created returns a new car obj', async () => {
@@ -32,11 +32,11 @@ describe('Car Model', () => {
 
   describe('Read cars', () => {
     before(() => {
-      sinon.stub(carMongooseModel, 'find').resolves([]);
+      sinon.stub(mongoModel, 'find').resolves([]);
     });
 
     after(() => {
-      (carMongooseModel.find as SinonStub).restore();
+      (mongoModel.find as SinonStub).restore();
     });
 
     it('1 - Returns an array of cars', async () => {

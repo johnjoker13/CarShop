@@ -18,6 +18,7 @@ class CustomRouter<T> {
     this.router
       .route(`${route}/:id`)
       .get(controller.readOne)
+      .put(controller.update)
       .delete(controller.delete);
     this.router.post(route, controller.create);
   }

@@ -4,17 +4,19 @@ import MongoModel from './MongoModel';
 import CarDocument from '../interfaces/CardDocument';
 
 export const carSchema = new Schema<CarDocument>({
-  model: String,
-  year: Number,
-  color: String,
+  model: { type: String, required: true },
+  year: { type: Number, required: true },
+  color: { type: String, required: true },
   status: Boolean,
-  buyValue: Number,
-  doorsQty: Number,
-  seatsQty: Number,
-});
+  buyValue: { type: Number, required: true },
+  doorsQty: { type: Number, required: true },
+  seatsQty: { type: Number, required: true },
+}, { versionKey: false });
+
+export const carModel = createModel<CarDocument>('Car', carSchema);
 
 class CarsModel extends MongoModel<Car> {
-  constructor(model = createModel('Cars', carSchema)) {
+  constructor(model = carModel) {
     super(model);
   }
 }

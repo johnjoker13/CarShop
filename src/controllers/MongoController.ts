@@ -16,6 +16,7 @@ enum ControllerErrors {
   notFound = 'Object not found',
   requiredId = 'Id is required',
   badRequest = 'Bad request',
+  idLength = 'Id must have 24 hexadecimal characters',
 }
 
 abstract class MongoController<T> {
@@ -48,8 +49,8 @@ abstract class MongoController<T> {
   ): Promise<typeof res>;
 
   abstract update(
-    req: Request<{ id: string, obj: T }>,
-    res: Response<T | ResponseError>
+    req: RequestWithBody<T>,
+    res: Response<T | ResponseError>,
   ): Promise<typeof res>;
 
   abstract delete(

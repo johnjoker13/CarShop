@@ -16,11 +16,12 @@ abstract class MongoService<T> {
   public readOne = async (id: string): Promise<T | null | ServiceError> =>
     this.model.readOne(id);
 
-  public update =
-  async (id: string, obj: T): Promise<T | null | ServiceError> =>
-    this.model.update(id, obj);
-  
-  public delete = async (id: string): Promise<T | null | ServiceError> =>
+  public async update(id: string, obj: T): Promise<T |
+  null> {
+    return this.model.update(id, obj);
+  }
+
+  public delete = async (id: string): Promise<T | null> =>
     this.model.delete(id);
 }
 

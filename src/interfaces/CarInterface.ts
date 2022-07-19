@@ -2,8 +2,8 @@ import { z } from 'zod';
 import { VehicleInterface } from './VehicleInterface';
 
 const CarInterface = VehicleInterface.extend({
-  doorsQty: z.number().min(2).max(4),
-  seatsQty: z.number().min(2).max(7),
+  doorsQty: z.number().int().gte(2).lte(4),
+  seatsQty: z.number().int().gte(2).lte(7),
 });
 
 type Car = z.infer<typeof CarInterface>;
