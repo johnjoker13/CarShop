@@ -1,7 +1,7 @@
 // src/routes/Router.ts
 
 import { Router } from 'express';
-import MongoController from '../controllers/MongoController';
+import CustomController from '../controllers/CustomController';
 
 class CustomRouter<T> {
   public router: Router;
@@ -11,7 +11,7 @@ class CustomRouter<T> {
   }
 
   public addRoute(
-    controller: MongoController<T>,
+    controller: CustomController<T>,
     route: string = controller.route,
   ) {
     this.router.get(route, controller.read);

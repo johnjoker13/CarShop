@@ -4,7 +4,7 @@ import { carMock, createdCarMock, readCarsOne } from '../../../mocks';
 import sinon from 'sinon';
 import { Request, Response } from 'express';
 import CarController from '../../../controllers/Cars.controller';
-import { RequestWithBody, ResponseError } from '../../../controllers/MongoController';
+import { RequestWithBody, ResponseError } from '../../../controllers/CustomController';
 import { Car } from '../../../interfaces/CarInterface';
 
 chai.use(chaiHttp);

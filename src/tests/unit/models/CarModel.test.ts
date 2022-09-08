@@ -1,7 +1,5 @@
 import { expect } from 'chai';
-import { model } from 'mongoose';
 import sinon, { SinonStub } from 'sinon';
-import { Car } from '../../../interfaces/CarInterface';
 import CarsModel, { carModel as mongoModel } from '../../../models/Cars.model';
 import { carMock, createdCarMock, readCarsOne } from '../../../mocks';
 import CarDocument from '../../../interfaces/CardDocument';

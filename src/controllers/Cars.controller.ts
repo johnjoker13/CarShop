@@ -1,12 +1,12 @@
 // src/controllers/car.ts
 
 import { Request, Response } from 'express';
-import MongoController,
-{ RequestWithBody, ResponseError } from './MongoController';
+import CustomController,
+{ RequestWithBody, ResponseError } from './CustomController';
 import CarService from '../services/Cars.service';
 import { Car } from '../interfaces/CarInterface';
 
-class CarController extends MongoController<Car> {
+class CarController extends CustomController<Car> {
   private _route: string;
 
   constructor(

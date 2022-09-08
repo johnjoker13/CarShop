@@ -1,10 +1,10 @@
 import { Response, Request } from 'express';
 import { Motorcycle } from '../interfaces/MotorcycleInterface';
 import MotorcycleService from '../services/Motorcycle.service';
-import MongoController,
-{ RequestWithBody, ResponseError } from './MongoController';
+import CustomController,
+{ RequestWithBody, ResponseError } from './CustomController';
 
-class MotorcycleController extends MongoController<Motorcycle> {
+class MotorcycleController extends CustomController<Motorcycle> {
   private _route: string;
 
   constructor(

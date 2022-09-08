@@ -1,7 +1,7 @@
 import { Model as M, Document } from 'mongoose';
 import { Model } from '../interfaces/ModelInterface';
 
-abstract class MongoModel<T> implements Model<T> {
+abstract class CustomModel<T> implements Model<T> {
   constructor(protected model: M<T & Document>) { }
   
   create = async (obj: T): Promise<T> => this.model.create({ ...obj });
@@ -18,4 +18,4 @@ abstract class MongoModel<T> implements Model<T> {
   Promise<T | null> => this.model.findByIdAndDelete({ _id: id });
 }
 
-export default MongoModel;
+export default CustomModel;

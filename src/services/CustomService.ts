@@ -1,12 +1,12 @@
 import { ZodError } from 'zod';
-import MongoModel from '../models/MongoModel';
+import CustomModel from '../models/CustomModel';
 
 export interface ServiceError {
   error: ZodError;
 }
 
-abstract class MongoService<T> {
-  constructor(protected model: MongoModel<T>) { }
+abstract class CustomService<T> {
+  constructor(protected model: CustomModel<T>) { }
 
   public create = async (obj: T): Promise<T | null | ServiceError> => 
     this.model.create(obj);
@@ -25,4 +25,4 @@ abstract class MongoService<T> {
     this.model.delete(id);
 }
 
-export default MongoService;
+export default CustomService;

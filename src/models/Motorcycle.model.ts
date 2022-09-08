@@ -1,6 +1,6 @@
 import { model as createModel, Schema } from 'mongoose';
 import { Motorcycle } from '../interfaces/MotorcycleInterface';
-import MongoModel from './MongoModel';
+import CustomModel from './CustomModel';
 import MotorcycleDocument from '../interfaces/MotorcycleDocument';
 
 export const motorcycleSchema = new Schema<MotorcycleDocument>({
@@ -16,7 +16,7 @@ export const motorcycleSchema = new Schema<MotorcycleDocument>({
 export const motorcycleModel = createModel<MotorcycleDocument
 >('Motorcycle', motorcycleSchema);
 
-class MotorcycleModel extends MongoModel<Motorcycle> {
+class MotorcycleModel extends CustomModel<Motorcycle> {
   constructor(model = motorcycleModel) {
     super(model);
   }

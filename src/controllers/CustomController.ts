@@ -1,7 +1,5 @@
-// src/controllers/index.ts
-
 import { Request, Response } from 'express';
-import MongoService from '../services/MongoService';
+import CustomService from '../services/CustomService';
 
 export type ResponseError = {
   error: unknown;
@@ -19,12 +17,12 @@ enum ControllerErrors {
   idLength = 'Id must have 24 hexadecimal characters',
 }
 
-abstract class MongoController<T> {
+abstract class CustomController<T> {
   abstract route: string;
 
   protected errors = ControllerErrors;
 
-  constructor(public service: MongoService<T>) { }
+  constructor(public service: CustomService<T>) { }
 
   abstract create(
     req: RequestWithBody<T>,
@@ -59,4 +57,4 @@ abstract class MongoController<T> {
   ): Promise<typeof res>;
 }
 
-export default MongoController;
+export default CustomController;

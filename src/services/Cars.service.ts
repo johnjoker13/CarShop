@@ -1,8 +1,8 @@
 import { Car, CarInterface } from '../interfaces/CarInterface';
-import MongoService, { ServiceError } from './MongoService';
+import CustomService, { ServiceError } from './CustomService';
 import CarsModel from '../models/Cars.model';
 
-class CarService extends MongoService<Car> {
+class CarService extends CustomService<Car> {
   constructor(model = new CarsModel()) { 
     super(model);
   }
