@@ -45,6 +45,6 @@ __Users should able to?__
 - Mocha, Chai and Sinon
 - Swagger
 
-### What i've learned
+### Learnings
 
 First, I was able to practice TDD as a development method, using Chai, Mocha & Sinon, as well as improve my knowledge of RESTFUL API's with Node.js, Express, Non-Relational databases with MongoDB and ODM's with Mongoose.
