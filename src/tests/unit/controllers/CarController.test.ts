@@ -94,7 +94,6 @@ describe('Car Controller', () => {
 
       await carController.delete(req, res);
       expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true
-      expect((res.json as sinon.SinonStub).calledWith(readCarsOne)).to.be.true
       sinon.restore();
     });
   });
