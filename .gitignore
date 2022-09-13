@@ -4,4 +4,4 @@ coverage
 .env
 .vscode
 .DS_Store
-.nyc.config.js
+nyc.config.js
