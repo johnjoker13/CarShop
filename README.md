@@ -3,9 +3,9 @@ A Restful API for CRUD operations simulating a vehicle shop
 
 ## Contents
 - [Overview](#overview)
+    - [How to Run](#how-to-run)
     - [The Challenge](#the-problem)
     - [Images](#images)
-    - [Links](#links)
   - [My process](#my-process)
     - [Built with](#built-with)
     - [Learnings](#learnings)
@@ -28,12 +28,6 @@ __Users should able to?__
 
 <small>API Docs</small>
 ![](./assets//carshop-api-docs.png)
-
-### Links
-
-- A
-- URL da documentação: https://todo-list-api-417639.herokuapp.com/v1/api-docs/
-
 
 ## Meu processo
 
