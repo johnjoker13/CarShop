@@ -79,7 +79,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ReturnedCars"
+                  "$ref": "#/components/schemas/ReturnedCar"
                 },
                 "example": [
                   {
