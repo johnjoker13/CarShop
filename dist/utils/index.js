@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NO_CONTENT = exports.NOT_FOUND = exports.OK = exports.CREATED = exports.BAD_REQUEST = exports.INTERNAL_SERVER_ERROR = void 0;
+const http_status_codes_1 = require("http-status-codes");
+const { INTERNAL_SERVER_ERROR, BAD_REQUEST, CREATED, OK, NOT_FOUND, NO_CONTENT, } = http_status_codes_1.StatusCodes;
+exports.INTERNAL_SERVER_ERROR = INTERNAL_SERVER_ERROR;
+exports.BAD_REQUEST = BAD_REQUEST;
+exports.CREATED = CREATED;
+exports.OK = OK;
+exports.NOT_FOUND = NOT_FOUND;
+exports.NO_CONTENT = NO_CONTENT;

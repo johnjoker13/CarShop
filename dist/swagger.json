@@ -1,0 +1,807 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "CarShop API",
+        "description": "RESTful API for CarShop",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3001/",
+            "description": "Local Server"
+        }
+    ],
+    "paths": {
+        "/cars": {
+            "post": {
+                "tags": ["Cars"],
+                "summary": "Create a car",
+                "description": "Create a new car",
+                "operationId": "create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCar"
+                            },
+                            "example": {
+                                "model": "Ferrari Spider",
+                                "year": 2015,
+                                "color": "red",
+                                "buyValue": 5500000,
+                                "seatsQty": 2,
+                                "doorsQty": 2
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Car created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreatedCar"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalError"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequest"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Cars"],
+                "summary": "List cars",
+                "description": "List existent cars",
+                "operationId": "read",
+                "responses": {
+                    "200": {
+                        "description": "Cars found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReturnedCar"
+                                },
+                                "example": [
+                                    {
+                                        "_id": "631f79478139c81524e38a67",
+                                        "model": "Ferrari Spider",
+                                        "year": 2015,
+                                        "color": "red",
+                                        "buyValue": 5500000,
+                                        "doorsQty": 2,
+                                        "seatsQty": 2
+                                    },
+                                    {
+                                        "_id": "631f79478139c81524e38a67",
+                                        "model": "Porsche Spider",
+                                        "year": 2011,
+                                        "color": "silver",
+                                        "buyValue": 8800000,
+                                        "doorsQty": 2,
+                                        "seatsQty": 2
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cars/{id}": {
+            "get": {
+                "tags": ["Cars"],
+                "summary": "List a specific car",
+                "description": "List a car based on its id",
+                "operationId": "readOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Car id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "id length lesser is not 24",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequest"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Car found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReturnedCar"
+                                },
+                                "example": {
+                                    "_id": "631f8d7b63d8420a6037fb82",
+                                    "model": "Ferrari Spider",
+                                    "year": 2015,
+                                    "color": "red",
+                                    "buyValue": 5500000,
+                                    "doorsQty": 2,
+                                    "seatsQty": 2
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Cars"],
+                "summary": "Update a car",
+                "description": "Update a car based on its id",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Car id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCar"
+                            },
+                            "example": {
+                                "model": "Ferrari Spider",
+                                "year": 2015,
+                                "color": "red",
+                                "buyValue": 5500000,
+                                "seatsQty": 2,
+                                "doorsQty": 2
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "id length lesser is not 24",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequest"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "car not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Car update",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateCar"
+                                },
+                                "example": {
+                                    "_id": "631f8d7b63d8420a6037fb82",
+                                    "model": "Porsche Spider",
+                                    "year": 2015,
+                                    "color": "red",
+                                    "buyValue": 5500000,
+                                    "doorsQty": 2,
+                                    "seatsQty": 2
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Cars"],
+                "summary": "Delete a car",
+                "description": "Delete a car based on its id",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Car id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "id length lesser is not 24",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequest"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "car not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalError"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "Car deleted"
+                    }
+                }
+            }
+        },
+        "/motorcycles": {
+            "post": {
+                "tags": ["Motorcycles"],
+                "summary": "Create a motorcycle",
+                "description": "Create a new motorcycle",
+                "operationId": "create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateMotorcycle"
+                            },
+                            "example": {
+                                "model": "Honda CG Titan 125",
+                                "year": 1963,
+                                "color": "red",
+                                "buyValue": 3500,
+                                "category": "Street",
+                                "engineCapacity": 125
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "New motorcycle created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreatedMotorcycle"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalError"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequest"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Motorcycles"],
+                "summary": "List motorcycles",
+                "description": "List existent motorcycles",
+                "operationId": "read",
+                "responses": {
+                    "200": {
+                        "description": "Motorcycles found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReturnedMotorcycles"
+                                },
+                                "example": [
+                                    {
+                                        "_id": "4edd40c86762e0fb12000003",
+                                        "model": "Honda CG Titan 125",
+                                        "year": 1963,
+                                        "color": "red",
+                                        "buyValue": 3500,
+                                        "category": "Street",
+                                        "engineCapacity": 125
+                                    },
+                                    {
+                                        "_id": "4edd40c86762e0fb12000003",
+                                        "model": "Honda CG Titan 150",
+                                        "year": 1967,
+                                        "color": "blue",
+                                        "buyValue": 5500,
+                                        "category": "Street",
+                                        "engineCapacity": 150
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/motorcycles/{id}": {
+            "get": {
+                "tags": ["Motorcycles"],
+                "summary": "List a specific motorcycle",
+                "description": "List a motorcycle based on its id",
+                "operationId": "readOne",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Motorcycle id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "id length lesser is not 24",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequest"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "motorcycle not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Motorcycle found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReturnedMotorcycles"
+                                },
+                                "example": {
+                                    "_id": "4edd40c86762e0fb12000003",
+                                    "model": "Honda CG Titan 125",
+                                    "year": 1963,
+                                    "color": "red",
+                                    "buyValue": 3500,
+                                    "category": "Street",
+                                    "engineCapacity": 125
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Motorcycles"],
+                "summary": "Update a motorcycle",
+                "description": "Update a motorcycle based on its id",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Motorcycle id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateMotorcycle"
+                            },
+                            "example": {
+                                "model": "Honda CG Titan 125",
+                                "year": 1963,
+                                "color": "red",
+                                "buyValue": 3500,
+                                "category": "Street",
+                                "engineCapacity": 125
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "id length lesser is not 24",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequest"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "motorcycle not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalError"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Motorcycle updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateMotorcycle"
+                                },
+                                "example": {
+                                    "_id": "631f8d7b63d8420a6037fb82",
+                                    "model": "Honda CG Titan 125",
+                                    "year": 1963,
+                                    "color": "red",
+                                    "buyValue": 3500,
+                                    "category": "Street",
+                                    "engineCapacity": 125
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Motorcycles"],
+                "summary": "Delete a Motorcycle",
+                "description": "Delete a motorcycle based on its id",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Motorcycle id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "id length lesser is not 24",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequest"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "motorcycle not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalError"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "Motorcycle deleted"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreateCar": {
+                "type": "object",
+                "properties": {
+                    "model": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "number"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "buyValue": {
+                        "type": "number"
+                    },
+                    "seatsQty": {
+                        "type": "number"
+                    },
+                    "doorsQty": {
+                        "type": "number"
+                    }
+                }
+            },
+            "UpdateCar": {
+                "type": "object",
+                "properties": {
+                    "model": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "number"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "buyValue": {
+                        "type": "number"
+                    },
+                    "seatsQty": {
+                        "type": "number"
+                    },
+                    "doorsQty": {
+                        "type": "number"
+                    }
+                }
+            },
+            "CreatedCar": {
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "model": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "number"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "buyValue": {
+                        "type": "number"
+                    },
+                    "seatsQty": {
+                        "type": "number"
+                    },
+                    "doorsQty": {
+                        "type": "number"
+                    }
+                }
+            },
+            "ReturnedCar": {
+                "_id": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "number"
+                },
+                "color": {
+                    "type": "string"
+                },
+                "buyValue": {
+                    "type": "number"
+                },
+                "seatsQty": {
+                    "type": "number"
+                },
+                "doorsQty": {
+                    "type": "number"
+                }
+            },
+            "CreateMotorcycle": {
+                "type": "object",
+                "properties": {
+                    "model": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "number"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "buyValue": {
+                        "type": "number"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "engineCapacity": {
+                        "type": "number"
+                    }
+                }
+            },
+            "CreatedMotorcycle": {
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "model": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "number"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "buyValue": {
+                        "type": "number"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "engineCapacity": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ReturnedMotorcycles": {
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "model": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "number"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "buyValue": {
+                        "type": "number"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "engineCapacity": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UpdateMotorcycle": {
+                "type": "object",
+                "properties": {
+                    "model": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "number"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "buyValue": {
+                        "type": "number"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "engineCapacity": {
+                        "type": "number"
+                    }
+                }
+            },
+            "InternalError": {
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            },
+            "BadRequest": {
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            },
+            "NotFound": {
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
