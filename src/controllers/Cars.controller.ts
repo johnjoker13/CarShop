@@ -26,6 +26,8 @@ class CarController extends CustomController<Car> {
 
   private _badrequest: string = this.errors.badRequest;
 
+  private _nocontent: string = this.errors.noContent;
+
   constructor(
     service = new CarService(),
     route = '/cars',
@@ -115,10 +117,10 @@ class CarController extends CustomController<Car> {
     if (!car) return res.status(NOT_FOUND).json({ error: this._notfound });
 
     if ('error' in car) {
-      return res.status(BAD_REQUEST).json(car);
+      return res.status(BAD_REQUEST).json({ error: this._badrequest });
     }
     
-    return res.status(NO_CONTENT).json(car);
+    return res.status(NO_CONTENT).json({ error: this._nocontent });
   };
 }
 

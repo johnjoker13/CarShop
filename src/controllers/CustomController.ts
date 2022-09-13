@@ -19,6 +19,7 @@ enum ControllerErrors {
   notFound = 'Object not found',
   requiredId = 'Id is required',
   badRequest = 'Bad request',
+  noContent = 'No content',
   idLength = 'Id must have 24 hexadecimal characters',
 }
 
