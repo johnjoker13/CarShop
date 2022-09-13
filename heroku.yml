@@ -3,4 +3,4 @@ build:
     web: Dockerfile
 
 run:
-  web: node src/index.ts
+  web: node dist/index.js
