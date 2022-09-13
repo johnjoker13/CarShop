@@ -3,7 +3,6 @@ A Restful API for CRUD operations simulating a vehicle shop
 
 ## Contents
 - [Overview](#overview)
-    - [How to Run](#how-to-run)
     - [The Challenge](#the-problem)
     - [Images](#images)
     - [Links](#links)
