@@ -12,6 +12,7 @@ services:
     working_dir: /app
     environment:
       - PORT=${PORT}
+      - MONGO_URI=mongodb://mongodb:27017/CarShop
     volumes:
       - ./:/app
     depends_on:
@@ -24,7 +25,6 @@ services:
     container_name: car_shop_db
     environment:
       - MONGO_PORT=${MONGO_PORT}
-      - MONGO_URI=mongodb://mongodb:27017/CarShop
     volumes:
       - ./:/app
     restart: always
