@@ -3,7 +3,7 @@
     "outDir": "./dist",
     "rootDir": ".",
     "baseUrl": ".",
-    "target": "es2016",
+    "target": "esnext",
     "module": "commonjs",
     "typeRoots": [
       "src/@types",
