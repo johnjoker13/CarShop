@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+
   node:
     image: node:16
     container_name: car_shop
@@ -8,7 +9,7 @@ services:
     stdin_open: true
     command: bash
     restart: always
-    working_dir: /
+    working_dir: /app
     environment:
       - PORT=${PORT}
     volumes:
